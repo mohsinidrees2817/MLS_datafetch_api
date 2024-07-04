@@ -3,3 +3,4 @@ uvicorn
 pyodbc
 sqlalchemy
 python-dotenv
+pandas
