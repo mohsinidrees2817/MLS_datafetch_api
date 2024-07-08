@@ -38,16 +38,7 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
-      # Step 6: Create .env file with secrets
-      - name: Create .env file
-        run: |
-          echo DB_DRIVER=${{ secrets.DB_DRIVER }} >> .env
-          echo DB_SERVER=${{ secrets.DB_SERVER }} >> .env
-          echo DB_NAME=${{ secrets.DB_NAME }} >> .env
-          echo DB_USER=${{ secrets.DB_USER }} >> .env
-          echo DB_PASSWORD=${{ secrets.DB_PASSWORD }} >> .env
-
-      # Step 7: Build and push Docker image
+      # Step 6: Build and push Docker image
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
@@ -55,7 +46,7 @@ jobs:
           push: true
           tags: ${{ secrets.REGISTRY_USERNAME }}.azurecr.io/mlsapi:latest
 
-      # Step 8: Check if the Azure Container Instance exists
+      # Step 7: Check if the Azure Container Instance exists
       - name: Check if container exists
         id: check_container
         run: |
@@ -65,7 +56,7 @@ jobs:
             echo "exists=false" >> $GITHUB_ENV
           fi
 
-      # Step 9: Stop and delete existing container if it exists
+      # Step 8: Stop and delete existing container if it exists
       - name: Stop and delete existing container if it exists
         if: env.exists == 'true'
         run: |
@@ -74,7 +65,7 @@ jobs:
           echo "Waiting for container to be deleted..."
           sleep 60  # Wait for 60 seconds to ensure the container is fully deleted
 
-      # Step 10: Deploy a new Azure Container Instance
+      # Step 9: Deploy a new Azure Container Instance
       - name: Deploy new container
         run: |
           az container create --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} --name mlsapi-container --image ${{ secrets.REGISTRY_USERNAME }}.azurecr.io/mlsapi:latest --ports 8000 --dns-name-label mlsapi-server --environment-variables ENVIRONMENT=production --registry-login-server ${{ secrets.REGISTRY_USERNAME }}.azurecr.io --registry-username ${{ secrets.REGISTRY_USERNAME }} --registry-password ${{ secrets.REGISTRY_PASSWORD }}
