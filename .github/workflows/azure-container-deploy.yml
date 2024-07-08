@@ -77,4 +77,4 @@ jobs:
       # Step 10: Deploy a new Azure Container Instance
       - name: Deploy new container
         run: |
-          az container create --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} --name mlsapi-container --image ${{ secrets.REGISTRY_USERNAME }}.azurecr.io/mlsapi:latest --ports 3000 --dns-name-label mlsapi-server --environment-variables ENVIRONMENT=production --registry-login-server ${{ secrets.REGISTRY_USERNAME }}.azurecr.io --registry-username ${{ secrets.REGISTRY_USERNAME }} --registry-password ${{ secrets.REGISTRY_PASSWORD }}
+          az container create --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} --name mlsapi-container --image ${{ secrets.REGISTRY_USERNAME }}.azurecr.io/mlsapi:latest --ports 8000 --dns-name-label mlsapi-server --environment-variables ENVIRONMENT=production --registry-login-server ${{ secrets.REGISTRY_USERNAME }}.azurecr.io --registry-username ${{ secrets.REGISTRY_USERNAME }} --registry-password ${{ secrets.REGISTRY_PASSWORD }}
