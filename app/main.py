@@ -13,7 +13,7 @@ class QueryRequest(BaseModel):
 
 @app.get("/")
 def read_root():
-    return {"message": "FastAPI application is running!x"}
+    return {"message": "FastAPI application is running!xx"}
 
 @app.get("/env")
 def read_env():
