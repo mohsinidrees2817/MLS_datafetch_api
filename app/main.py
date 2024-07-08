@@ -12,11 +12,12 @@ class QueryRequest(BaseModel):
 
 @app.get("/")
 def read_root():
-    return {"message": "FastAPI application is running!"}
+    return {"message": "FastAPI application is running!x"}
 
 
 @app.get("/health")
 def health_check():
+    conn = None
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
@@ -80,7 +81,7 @@ def query_properties(query_request: QueryRequest):
 
 # ------------------------------------------------------------------------
 # returns litings array and message
-# @app.post("/query_properties/")
+# @app.post("/./")
 # def query_properties(query_request: QueryRequest):
 #     conn = None
 #     try:
