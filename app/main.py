@@ -13,7 +13,7 @@ class QueryRequest(BaseModel):
 
 @app.get("/")
 def read_root():
-    return {"message": "FastAPI application is running!xxx"}
+    return {"message": "FastAPI application is running!"}
 
 @app.get("/health")
 def health_check():
