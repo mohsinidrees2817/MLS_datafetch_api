@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from .database import get_db_connection
 from fastapi.responses import HTMLResponse
+import os
 
 app = FastAPI()
 
@@ -14,6 +15,15 @@ class QueryRequest(BaseModel):
 def read_root():
     return {"message": "FastAPI application is running!x"}
 
+@app.get("/env")
+def read_env():
+    return {
+        "DB_DRIVER": os.getenv("DB_DRIVER"),
+        "DB_SERVER": os.getenv("DB_SERVER"),
+        "DB_NAME": os.getenv("DB_NAME"),
+        "DB_USER": os.getenv("DB_USER"),
+        "DB_PASSWORD": os.getenv("DB_PASSWORD"),
+    }
 
 @app.get("/health")
 def health_check():
