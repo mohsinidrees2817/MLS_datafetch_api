@@ -38,6 +38,19 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
 
+      # Step 6: Create .env file with secrets
+      - name: Create .env file
+        run: |
+          echo DB_DRIVER=${{ secrets.DB_DRIVER }} >> .env
+          echo DB_SERVER=${{ secrets.DB_SERVER }} >> .env
+          echo DB_NAME=${{ secrets.DB_NAME }} >> .env
+          echo DB_USER=${{ secrets.DB_USER }} >> .env
+          echo DB_PASSWORD=${{ secrets.DB_PASSWORD }} >> .env
+
+      # Step 7: Print the .env file to verify secrets
+      - name: Print .env file
+        run: cat .env
+
       # Step 6: Build and push Docker image
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
