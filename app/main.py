@@ -48,6 +48,7 @@ def query_properties(query_request: QueryRequest):
         cursor.execute(sql)
         dataset = cursor.fetchall()
 
+
         if not dataset:
             
             return "<p>No properties found with the given criteria. Please try changing your search criteria or location.</p>"
