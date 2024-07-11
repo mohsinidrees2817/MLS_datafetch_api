@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from .database import get_db_connection
 from fastapi.responses import HTMLResponse
+
 import os
 
 app = FastAPI()
